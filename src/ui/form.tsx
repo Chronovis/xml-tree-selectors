@@ -65,7 +65,7 @@ const Close = styled('div')`
 interface FormHeaderProps {
 	active: boolean
 	label: string
-	toggle: () => void
+	toggleActive: () => void
 	close: () => void
 }
 export class FormHeader extends React.PureComponent<FormHeaderProps> {
@@ -76,7 +76,7 @@ export class FormHeader extends React.PureComponent<FormHeaderProps> {
 				<ControlButtons>
 					<Toggle
 						active={this.props.active}
-						onClick={this.props.toggle}
+						onClick={this.props.toggleActive}
 					>
 						<div />
 					</Toggle>
@@ -87,34 +87,29 @@ export class FormHeader extends React.PureComponent<FormHeaderProps> {
 	}
 }
 
-export interface FormProps {
+interface Props {
+	active: boolean
+	change: (nextProps: any) => void
 	children?: any
 	close: () => void
 	label: string
 	type: 'exclude' | 'replace' | 'change' | 'select' | 'exporter'
 }
-interface FormState {
-	active: boolean
-}
-export class Form extends React.PureComponent<FormProps, FormState> {
-	state: FormState = {
-		active: true
-	}
-
+export class Form extends React.PureComponent<Props> {
 	render() {
 		return (
 			<FormWrapper
-				active={this.state.active}
+				active={this.props.active}
 				type={this.props.type}
 			>
 				<FormHeader
-					active={this.state.active}
+					active={this.props.active}
 					close={this.props.close}
 					label={this.props.label}
-					toggle={() => this.setState({ active: !this.state.active })}
+					toggleActive={() => this.props.change({ active: !this.props.active })}
 				/>
 				{
-					this.state.active &&
+					this.props.active &&
 					this.props.children
 				}
 			</FormWrapper>

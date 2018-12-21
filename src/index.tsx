@@ -1,46 +1,21 @@
 import * as React from 'react'
 import * as ReactDOM from 'react-dom'
 import * as monaco from 'monaco-editor'
-import Transformers from './transformers'
-import TransformersPlaceholder from './transformers/placeholder'
+import Handlers from './handlers'
+import HandlersPlaceholder from './handlers/placeholder'
 import Output from './output'
-import xml from './xml'
-import Exporters from './exporters'
-import ExportersPlaceholder from './exporters/placeholder'
 import { Head, Main, H1, InputEditor, InputEditorPlaceholder, OutputEditorPlaceholder } from './index.components'
+import defaultState from './state'
 
-export interface Columns {
-	input: boolean
-	transformers: boolean
-	exporters: boolean
-	output: boolean
-}
-interface State {
-	columns: Columns
-	exporters: Exporter[]
-	input: string
-	transformers: XMLioTransformer[]
-}
-class App extends React.PureComponent<any, State> {
-	editor
-
-	state: State = {
-		columns: {
-			input: true,
-			transformers: true,
-			exporters: true,
-			output: true,
-		},
-		exporters: [],
-		input: xml,
-		transformers: [{ type: 'exclude', selector: ['lb'] }],
-	}
+class App extends React.PureComponent<any, ContextState> {
+	editor: any
+	state: ContextState = defaultState
 
 	componentDidMount() {
 		this.initEditor()
 	}
 
-	componentDidUpdate(_prevProps, prevState: State) {
+	componentDidUpdate(_prevProps, prevState: ContextState) {
 		if (prevState.columns !== this.state.columns) {
 			this.editor.layout()
 		}
@@ -69,34 +44,31 @@ class App extends React.PureComponent<any, State> {
 				}
 				{
 					this.state.columns.transformers ?
-						<Transformers
-							change={transformers => this.setState({ transformers })}
-							input={this.state.input}
-							transformers={this.state.transformers}
+						<Handlers
+							change={(transformers: XMLioTransformer[]) => this.setState({ transformers })}
+							handlers={this.state.transformers}
+							type="transformers"
 						/> :
-						<TransformersPlaceholder
+						<HandlersPlaceholder
 							onClick={this.handleColumnClick('transformers')} 
-							transformers={this.state.transformers} 
+							handlers={this.state.transformers} 
 						/>
 				}
 				{
 					this.state.columns.exporters ?
-						<Exporters
-							change={exporters => this.setState({ exporters })}
-							exporters={this.state.exporters}
+						<Handlers
+							change={(exporters: Exporter[]) => this.setState({ exporters })}
+							handlers={this.state.exporters}
+							type="exporters"
 						/> :
-						<ExportersPlaceholder
-							exporters={this.state.exporters} 
+						<HandlersPlaceholder
+							handlers={this.state.exporters} 
 							onClick={this.handleColumnClick('exporters')} 
 						/>
 				}
 				{
 					this.state.columns.output ?
-						<Output
-							exporters={this.state.exporters}
-							input={this.state.input}
-							transformers={this.state.transformers}
-						/> :
+						<Output {...this.state} /> :
 						<OutputEditorPlaceholder onClick={this.handleColumnClick('output')} />
 				}
 			</Main>

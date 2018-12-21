@@ -1,5 +1,4 @@
 import styled from '@emotion/styled'
-import { Columns } from './index'
 
 export const Main = styled('div')`
 	display: grid;

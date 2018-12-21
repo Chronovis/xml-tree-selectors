@@ -22,8 +22,8 @@ export default class Exporters extends React.PureComponent<Props> {
 					this.props.exporters.map((exporter, index) => {
 						let Component
 						if (exporter.type === 'xml') Component = XmlForm
-						else if (exporter.type === 'data') Component = DataForm
-						else if (exporter.type === 'text') Component = TextForm
+						if (exporter.type === 'data') Component = DataForm
+						if (exporter.type === 'text') Component = TextForm
 						// else if (exporterOptions.type === 'jsx') Component = SelectForm
 
 						return (

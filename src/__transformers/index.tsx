@@ -15,7 +15,6 @@ export const Wrapper = styled('div')`
 
 interface Props {
 	change: (transformers: XMLioTransformer[]) => void
-	input: string
 	transformers: XMLioTransformer[]
 }
 export default class Transformers extends React.Component<Props> {
@@ -42,27 +41,27 @@ export default class Transformers extends React.Component<Props> {
 				}
 				{
 					<AddTransform
-						change={transform => {
-							let nextTransform: XMLioTransformer
-							if (transform === 'exclude') nextTransform = {
+						change={transformer => {
+							let nextTransformer: XMLioTransformer
+							if (transformer === 'exclude') nextTransformer = {
 								selector: [],
-								type: transform,
+								type: transformer,
 							}
-							if (transform === 'replace') nextTransform = {
+							if (transformer === 'replace') nextTransformer = {
 								sourceSelectorFunc: '',
 								targetSelector: '',
-								type: transform,
+								type: transformer,
 							}
-							if (transform === 'change') nextTransform = {
+							if (transformer === 'change') nextTransformer = {
 								changeFunc: '',
 								selector: '',
-								type: transform,
+								type: transformer,
 							}
-							if (transform === 'select') nextTransform = {
+							if (transformer === 'select') nextTransformer = {
 								selector: '',
-								type: transform,
+								type: transformer,
 							}
-							const transforms = this.props.transformers.concat(nextTransform)
+							const transforms = this.props.transformers.concat(nextTransformer)
 							this.props.change(transforms)
 						}}
 					/>
