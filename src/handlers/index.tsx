@@ -45,11 +45,22 @@ export default class Handlers extends React.PureComponent<Props> {
 					})
 				}
 				<AddHandler
-					change={handler => this.props.change(this.props.handlers.map(h => { h.active = false; return h }).concat(handler))}
+					change={this.addHandler}
 					type={this.props.type}
 				/>
 			</Wrapper>	
 		)
+	}
+
+	private addHandler = (handler: Handler) => {
+		const handlers = this.props.type === 'exporters' ?
+			this.props.handlers
+				.map(h => {
+					h.active = false
+					return h
+				}) :
+			this.props.handlers
+		this.props.change(handlers.concat(handler))
 	}
 
 	private updateHandlers(nextProps: Partial<Handler>, index: number) {
@@ -61,7 +72,10 @@ export default class Handlers extends React.PureComponent<Props> {
 
 		// Highlander
 		if (this.props.type === 'exporters' && nextProps.hasOwnProperty('active') && nextProps.active) {
-			handlers = handlers.map(h => { h.active = false; return h; })
+			handlers = handlers.map(h => {
+				h.active = false
+				return h
+			})
 			handlers[index].active = true
 		}
 

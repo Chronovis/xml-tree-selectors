@@ -112,6 +112,7 @@ export default class Output extends React.PureComponent<Props, State> {
 			<Wrapper ref={this.wrapperRef}>
 				<Parts>
 					{
+						this.activeExporter() &&
 						// @ts-ignore
 						this.state.output
 							.slice(0, this.state.activePart)
@@ -128,6 +129,7 @@ export default class Output extends React.PureComponent<Props, State> {
 				<OutputEditor id="output-editor" />
 				<Parts>
 					{
+						this.activeExporter() &&
 						// @ts-ignore
 						this.state.output
 							.slice(this.state.activePart + 1)
