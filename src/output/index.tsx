@@ -13,6 +13,25 @@ const OutputEditor = styled('div')`
 	height: 100%;
 `
 
+const Parts = styled('ul')`
+	padding: 0 0 1em 0;
+`
+
+const Part = styled('li')`
+	background: gray;
+	border-radius: 1em;
+	color: white;
+	cursor: pointer;
+	display: inline-block;
+	font-size: .8em;
+	font-weight: bold;
+	height: 1.8em;
+	line-height: 1.8em;
+	margin: 0 .3em .3em 0;
+	text-align: center;
+	width: 1.8em;
+`
+
 interface Props {
 	columns: Columns
 	input: string
@@ -29,7 +48,7 @@ export default class Output extends React.PureComponent<Props, State> {
 
 	state: State = {
 		activePart: 0,
-		output: null
+		output: []
 	}
 
 	constructor(props: Props) {
@@ -45,6 +64,12 @@ export default class Output extends React.PureComponent<Props, State> {
 				this.editor = null
 			}
 			return
+		}
+
+		if (prevState.output.length !== this.state.output.length) {
+			const el = document.getElementById('output-editor')
+			el.style.height = this.state.output.length > 1 ? '90%' : '100%'
+			this.editor.layout()
 		}
 
 		if (this.editor != null && prevProps.columns !== this.props.columns) {
@@ -68,7 +93,7 @@ export default class Output extends React.PureComponent<Props, State> {
 				this.editor = this.initEditor(editorOptions)
 			}
 
-			this.setState({ output })
+			this.setState({ activePart: 0, output })
 
 			return
 		}
@@ -85,7 +110,37 @@ export default class Output extends React.PureComponent<Props, State> {
 	render() {
 		return (
 			<Wrapper ref={this.wrapperRef}>
+				<Parts>
+					{
+						// @ts-ignore
+						this.state.output
+							.slice(0, this.state.activePart)
+							.map((_out: any, index: number) =>
+								<Part
+									key={`before-${index}`}
+									onClick={() => this.setState({ activePart: index })}
+								>
+									{index + 1}
+								</Part>
+							)
+					}
+				</Parts>
 				<OutputEditor id="output-editor" />
+				<Parts>
+					{
+						// @ts-ignore
+						this.state.output
+							.slice(this.state.activePart + 1)
+							.map((_out: any, index: number) =>
+								<Part
+									key={`after-${index}`}
+									onClick={() => this.setState({ activePart: this.state.activePart + index + 1 })}
+								>
+									{this.state.activePart + index + 2}
+								</Part>
+							)
+					}
+				</Parts>
 			</Wrapper>
 		)
 	}

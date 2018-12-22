@@ -8,7 +8,7 @@ const defaultState: ContextState = {
 		output: true,
 	},
 	exporters: [{ active: true, type: 'xml' }],
-	transformers: [{ active: true, type: 'exclude', selector: ['note'] }],
+	transformers: [{ active: true, type: 'select', selector: 'lb' }],
 	input,
 }
 
