@@ -13,23 +13,23 @@
     "@emotion/core": "^10.0.5",
     "@emotion/styled": "^10.0.5",
     "emotion": "^10.0.5",
-    "lodash.debounce": "^4.0.8",
+    "hire-tabs": "^2.0.5",
     "monaco-editor": "^0.15.6",
-    "react": "^16.6.3",
-    "react-dom": "^16.6.3",
+    "react": "^16.7.0",
+    "react-dom": "^16.7.0",
     "react-emotion": "^10.0.0",
-    "xml-formatter": "^1.0.1"
+    "xmlio": "^4.1.0"
   },
   "devDependencies": {
-    "@types/react": "^16.7.17",
+    "@types/react": "^16.7.18",
     "@types/react-dom": "^16.0.11",
     "awesome-typescript-loader": "^5.2.1",
-    "css-loader": "^2.0.1",
+    "css-loader": "^2.0.2",
     "monaco-editor-webpack-plugin": "^1.7.0",
     "style-loader": "^0.23.1",
     "typescript": "^3.2.2",
-    "webpack": "^4.27.1",
+    "webpack": "^4.28.2",
     "webpack-cli": "^3.1.2",
-    "webpack-dev-server": "^3.1.10"
+    "webpack-dev-server": "^3.1.12"
   }
 }

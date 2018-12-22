@@ -76,7 +76,6 @@ export default class Output extends React.PureComponent<Props, State> {
 			this.editor.layout()
 		}
 
-
 		const prevExporter = prevProps.exporters.find(e => e.active)
 		const thisExporter = this.activeExporter()
 
@@ -93,7 +92,8 @@ export default class Output extends React.PureComponent<Props, State> {
 				this.editor = this.initEditor(editorOptions)
 			}
 
-			this.setState({ activePart: 0, output })
+			const nextState: Partial<State> = { activePart: 0, output }
+			this.setState(nextState as State)
 
 			return
 		}
@@ -159,7 +159,11 @@ export default class Output extends React.PureComponent<Props, State> {
 
 		if (model.getModeId() === 'json') {
 			model.setValue(JSON.stringify(output))
-			this.editor.getAction('editor.action.formatDocument').run()
+			setTimeout(async () => {
+				this.editor.updateOptions({ readOnly: false })
+				await this.editor.getAction('editor.action.formatDocument').run()
+				this.editor.updateOptions({ readOnly: true })
+			}, 100)
 		} else {
 			model.setValue(output)
 		}

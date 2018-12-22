@@ -4,8 +4,9 @@ const path = require('path');
 module.exports = {
 	devServer: {
 		contentBase: path.resolve(__dirname),
+		disableHostCheck: true,
 		historyApiFallback: true,
-		port: 4000,
+		port: 4000
 	},
   entry: './src/index.tsx',
   output: {
