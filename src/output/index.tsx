@@ -4,30 +4,35 @@ import styled from '@emotion/styled'
 import Xmlio from 'xmlio'
 import editorOptionsByExporterType from './editor-options-by-exporter-type'
 import { EditorWrapper } from '../index.components'
+import PartNavigator from './part-navigator'
 
 const Wrapper = styled('div')`
 	grid-row-start: 3;
 	grid-row-end: 4;
+
+	${(props: { hasParts: boolean }) =>
+		props.hasParts ? `display: grid; grid-template-rows: 5% 95%; grid-row-gap: 1em;` : ''
+	}
 `
 
-const Parts = styled('ul')`
-	padding: 0 0 1em 0;
-`
+// const Parts = styled('ul')`
+// 	padding: 0 0 1em 0;
+// `
 
-const Part = styled('li')`
-	background: gray;
-	border-radius: 1em;
-	color: white;
-	cursor: pointer;
-	display: inline-block;
-	font-size: .8em;
-	font-weight: bold;
-	height: 1.8em;
-	line-height: 1.8em;
-	margin: 0 .3em .3em 0;
-	text-align: center;
-	width: 1.8em;
-`
+// const Part = styled('li')`
+// 	background: gray;
+// 	border-radius: 1em;
+// 	color: white;
+// 	cursor: pointer;
+// 	display: inline-block;
+// 	font-size: .8em;
+// 	font-weight: bold;
+// 	height: 1.8em;
+// 	line-height: 1.8em;
+// 	margin: 0 .3em .3em 0;
+// 	text-align: center;
+// 	width: 1.8em;
+// `
 
 interface Props {
 	columns: Columns
@@ -106,50 +111,28 @@ export default class Output extends React.PureComponent<Props, State> {
 
 	render() {
 		const hasExporter = this.activeExporter() != null && this.editor != null
-		const partsBefore = this.state.output.slice(0, this.state.activePart)
-		const hasPartsBefore = hasExporter && partsBefore.length > 0
-		const partsAfter = this.state.output.slice(this.state.activePart + 1)
-		const hasPartsAfter = hasExporter && partsAfter.length > 0
+		const hasParts = hasExporter && this.state.output.length > 0
+		// const partsBefore = this.state.output.slice(0, this.state.activePart)
+		// const hasPartsBefore = hasExporter && partsBefore.length > 0
+		// const partsAfter = this.state.output.slice(this.state.activePart + 1)
+		// const hasPartsAfter = hasExporter && partsAfter.length > 0
 
 		return (
-			<Wrapper ref={this.wrapperRef}>
+			<Wrapper
+				hasParts={hasParts}
+				ref={this.wrapperRef}
+			>
 				{
-					hasPartsBefore &&
-					<Parts>
-						{
-							// @ts-ignore
-							partsBefore
-								.map((_out: any, index: number) =>
-									<Part
-										key={`before-${index}`}
-										onClick={() => this.setState({ activePart: index })}
-									>
-										{index + 1}
-									</Part>
-								)
-						}
-					</Parts>
+					hasParts &&
+					<PartNavigator
+						activePart={this.state.activePart}
+						change={activePart => this.setState({ activePart })}
+						partCount={this.state.output.length}
+					/>
 				}
 				<EditorWrapper>
 					<div id="output-editor" />
 				</EditorWrapper>
-					{
-						hasPartsAfter &&
-						<Parts>
-							{
-								// @ts-ignore
-								partsAfter
-									.map((_out: any, index: number) =>
-										<Part
-											key={`after-${index}`}
-											onClick={() => this.setState({ activePart: this.state.activePart + index + 1 })}
-										>
-											{this.state.activePart + index + 2}
-										</Part>
-									)
-							}
-						</Parts>
-					}
 			</Wrapper>
 		)
 	}

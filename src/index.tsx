@@ -4,7 +4,7 @@ import * as monaco from 'monaco-editor'
 import Handlers from './handlers'
 import HandlersPlaceholder from './handlers/placeholder'
 import Output from './output'
-import { Head, Main, H1, InputEditorPlaceholder, OutputEditorPlaceholder, EditorWrapper } from './index.components'
+import { Head, Main, H1, InputEditorPlaceholder, OutputEditorPlaceholder, InputEditorWrapper } from './index.components'
 import defaultState from './state'
 import { defaultEditorOptions } from './output/editor-options-by-exporter-type';
 
@@ -40,9 +40,9 @@ class App extends React.PureComponent<any, ContextState> {
 				<Head onClick={this.handleColumnClick('output')}>{ this.state.columns.output ? 'OUTPUT' : 'OUT' }</Head>
 				{
 					this.state.columns.input ?
-						<EditorWrapper>
+						<InputEditorWrapper>
 							<div id="input-editor" />
-						</EditorWrapper> :
+						</InputEditorWrapper> :
 						<InputEditorPlaceholder onClick={this.handleColumnClick('input')} />
 				}
 				{

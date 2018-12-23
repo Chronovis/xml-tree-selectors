@@ -26,8 +26,6 @@ export const H1 = styled('h1')`
 `
 
 export const Editor = styled('div')`
-	grid-row-start: 3;
-	grid-row-end: 4;
 	height: 100%;
 `
 
@@ -35,13 +33,18 @@ export const EditorWrapper = styled(Editor)`
 	background: white;
 	border-radius: 1em;
 	box-sizing: border-box;
-	grid-column-end: 2;
-	grid-column-start: 1;
 	padding: 1em .5em;
 
 	& > div {
 		height: 100%;
 	}
+`
+
+export const InputEditorWrapper = styled(EditorWrapper)`
+	grid-column-end: 2;
+	grid-column-start: 1;
+	grid-row-end: 4;
+	grid-row-start: 3;
 `
 
 export const InputEditorPlaceholder = styled(EditorWrapper)`
