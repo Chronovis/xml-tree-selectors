@@ -1,4 +1,5 @@
-const defaultOptions = {
+export const defaultEditorOptions = {
+	lineNumbers: 'off' as 'off',
 	readOnly: true,
 	scrollBeyondLastLine: false,
 	wordWrap: 'on' as 'on'
@@ -6,17 +7,17 @@ const defaultOptions = {
 
 export default {
 	xml: {
-		...defaultOptions,
+		...defaultEditorOptions,
 		language: 'xml',
 	},
 	data: {
-		...defaultOptions,
+		...defaultEditorOptions,
 		language: 'json',
 		wordWrap: 'off' as 'off'
 	},
 
 	text: {
-		...defaultOptions,
+		...defaultEditorOptions,
 		language: 'plaintext',
 	}
 }

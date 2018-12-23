@@ -3,14 +3,11 @@ import * as monaco from 'monaco-editor'
 import styled from '@emotion/styled'
 import Xmlio from 'xmlio'
 import editorOptionsByExporterType from './editor-options-by-exporter-type'
+import { EditorWrapper } from '../index.components'
 
 const Wrapper = styled('div')`
 	grid-row-start: 3;
 	grid-row-end: 4;
-`
-
-const OutputEditor = styled('div')`
-	height: 100%;
 `
 
 const Parts = styled('ul')`
@@ -108,41 +105,51 @@ export default class Output extends React.PureComponent<Props, State> {
 	}
 
 	render() {
+		const hasExporter = this.activeExporter() != null && this.editor != null
+		const partsBefore = this.state.output.slice(0, this.state.activePart)
+		const hasPartsBefore = hasExporter && partsBefore.length > 0
+		const partsAfter = this.state.output.slice(this.state.activePart + 1)
+		const hasPartsAfter = hasExporter && partsAfter.length > 0
+
 		return (
 			<Wrapper ref={this.wrapperRef}>
-				<Parts>
+				{
+					hasPartsBefore &&
+					<Parts>
+						{
+							// @ts-ignore
+							partsBefore
+								.map((_out: any, index: number) =>
+									<Part
+										key={`before-${index}`}
+										onClick={() => this.setState({ activePart: index })}
+									>
+										{index + 1}
+									</Part>
+								)
+						}
+					</Parts>
+				}
+				<EditorWrapper>
+					<div id="output-editor" />
+				</EditorWrapper>
 					{
-						this.activeExporter() &&
-						// @ts-ignore
-						this.state.output
-							.slice(0, this.state.activePart)
-							.map((_out: any, index: number) =>
-								<Part
-									key={`before-${index}`}
-									onClick={() => this.setState({ activePart: index })}
-								>
-									{index + 1}
-								</Part>
-							)
+						hasPartsAfter &&
+						<Parts>
+							{
+								// @ts-ignore
+								partsAfter
+									.map((_out: any, index: number) =>
+										<Part
+											key={`after-${index}`}
+											onClick={() => this.setState({ activePart: this.state.activePart + index + 1 })}
+										>
+											{this.state.activePart + index + 2}
+										</Part>
+									)
+							}
+						</Parts>
 					}
-				</Parts>
-				<OutputEditor id="output-editor" />
-				<Parts>
-					{
-						this.activeExporter() &&
-						// @ts-ignore
-						this.state.output
-							.slice(this.state.activePart + 1)
-							.map((_out: any, index: number) =>
-								<Part
-									key={`after-${index}`}
-									onClick={() => this.setState({ activePart: this.state.activePart + index + 1 })}
-								>
-									{this.state.activePart + index + 2}
-								</Part>
-							)
-					}
-				</Parts>
 			</Wrapper>
 		)
 	}

@@ -4,6 +4,7 @@ import { excludeBlue, changePurple, replaceOrange, exporterGray, selectGreen, in
 
 const FormWrapper = styled('div')`
 	border-radius: 10px;
+	box-shadow: 1px 1px 4px rgba(0, 0, 0, .2);
 	margin-bottom: 1em;
 	padding: 1em;
 

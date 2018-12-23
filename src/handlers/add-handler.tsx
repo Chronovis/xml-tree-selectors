@@ -5,6 +5,7 @@ import { Button } from '../ui/button';
 import { handlerDefaults } from 'xmlio'
 
 export const Wrapper = styled('div')`
+	background: rgba(255, 255, 255, .4);
 	border: 4px dashed rgba(165, 42, 42, .${(props: State) => props.menu ? '8' : '4'});
 	border-radius: 10px;
 	padding: 1em;

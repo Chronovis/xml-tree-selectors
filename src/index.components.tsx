@@ -1,9 +1,10 @@
 import styled from '@emotion/styled'
 
 export const Main = styled('div')`
+	box-sizing: border-box;
 	display: grid;
 	grid-column-gap: 2%;
-	grid-template-rows: 10% 5% 85%;
+	grid-template-rows: 10% 5% 82%;
 	grid-template-columns: ${(props: { columns: Columns }) => {
 		const closedColumnWidth = 5
 		const closedColumns = Object.keys(props.columns).reduce((prev, curr) => prev + (props.columns[curr] ? 0 : 1), 0)
@@ -13,6 +14,7 @@ export const Main = styled('div')`
 		return Object.keys(props.columns).map(column => props.columns[column] ? `${spacePerColumn}%` : `${closedColumnWidth}%`).join(' ')
 	}};
 	height: 100%;
+	padding: 0 2%;
 	transition: all 1s;
 	width: 100%;
 `
@@ -29,12 +31,20 @@ export const Editor = styled('div')`
 	height: 100%;
 `
 
-export const InputEditor = styled(Editor)`
-	grid-column-start: 1;
+export const EditorWrapper = styled(Editor)`
+	background: white;
+	border-radius: 1em;
+	box-sizing: border-box;
 	grid-column-end: 2;
+	grid-column-start: 1;
+	padding: 1em .5em;
+
+	& > div {
+		height: 100%;
+	}
 `
 
-export const InputEditorPlaceholder = styled(InputEditor)`
+export const InputEditorPlaceholder = styled(EditorWrapper)`
 	background-color: lightgray;
 	cursor: pointer;
 `

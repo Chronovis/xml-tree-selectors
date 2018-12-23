@@ -4,8 +4,9 @@ import * as monaco from 'monaco-editor'
 import Handlers from './handlers'
 import HandlersPlaceholder from './handlers/placeholder'
 import Output from './output'
-import { Head, Main, H1, InputEditor, InputEditorPlaceholder, OutputEditorPlaceholder } from './index.components'
+import { Head, Main, H1, InputEditorPlaceholder, OutputEditorPlaceholder, EditorWrapper } from './index.components'
 import defaultState from './state'
+import { defaultEditorOptions } from './output/editor-options-by-exporter-type';
 
 class App extends React.PureComponent<any, ContextState> {
 	editor: any
@@ -32,14 +33,16 @@ class App extends React.PureComponent<any, ContextState> {
 	render() {
 		return (
 			<Main columns={this.state.columns}>
-				<H1>Bosporus</H1>
+				<H1>BOSPORUS</H1>
 				<Head onClick={this.handleColumnClick('input')}>{ this.state.columns.input ? 'INPUT' : 'IN' }</Head>
 				<Head onClick={this.handleColumnClick('transformers')}>{ this.state.columns.transformers ? 'TRANSFORMERS' : 'TRA' }</Head>
 				<Head onClick={this.handleColumnClick('exporters')}>{ this.state.columns.exporters ? 'EXPORTERS' : 'EXP' }</Head>
 				<Head onClick={this.handleColumnClick('output')}>{ this.state.columns.output ? 'OUTPUT' : 'OUT' }</Head>
 				{
 					this.state.columns.input ?
-						<InputEditor id="input-editor" /> :
+						<EditorWrapper>
+							<div id="input-editor" />
+						</EditorWrapper> :
 						<InputEditorPlaceholder onClick={this.handleColumnClick('input')} />
 				}
 				{
@@ -85,11 +88,9 @@ class App extends React.PureComponent<any, ContextState> {
 
 	private initEditor() {
 		this.editor = monaco.editor.create(document.getElementById('input-editor'), {
-			formatOnPaste: true,
+			...defaultEditorOptions,
 			language: 'xml',
-			scrollBeyondLastLine: false,
 			value: this.state.input,
-			wordWrap: 'on'
 		})
 		this.editor.onDidChangeModelContent(() => this.setState({ input: this.editor.getModel().getValue() }))
 	}
