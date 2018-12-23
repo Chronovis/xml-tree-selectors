@@ -22,7 +22,14 @@ export const Main = styled('div')`
 export const H1 = styled('h1')`
 	grid-column-start: 1;
 	grid-column-end: 5;
-	padding-left: 2em;
+    margin: 0;
+    justify-self: center;
+    background: rgba(255, 255, 255, .8);
+    align-self: start;
+    padding: 0.3em 1.4em;
+    border-bottom-left-radius: 1em;
+    border-bottom-right-radius: 1em;
+    box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.2);
 `
 
 export const Editor = styled('div')`
