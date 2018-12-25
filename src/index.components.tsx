@@ -26,10 +26,19 @@ export const H1 = styled('h1')`
     justify-self: center;
     background: rgba(255, 255, 255, .8);
     align-self: start;
-    padding: 0.3em 1.4em;
+    padding: 0.2em 1.4em;
     border-bottom-left-radius: 1em;
     border-bottom-right-radius: 1em;
-    box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.2);
+	box-shadow: 4px 4px 20px rgba(0, 0, 0, 0.2);
+	text-align: center;
+	
+	small {
+		color: #888;
+		font-weight: normal;
+		font-size: .375em;
+		display: block;
+		text-transform: uppercase;
+	}
 `
 
 export const Editor = styled('div')`
@@ -66,6 +75,7 @@ export const OutputEditorPlaceholder = styled(InputEditorPlaceholder)`
 `
 
 export const Head = styled('div')`
+	cursor: pointer;
 	font-weight: bold;
 	text-align: center;
 `

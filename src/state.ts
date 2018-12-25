@@ -7,8 +7,10 @@ const defaultState: ContextState = {
 		exporters: true,
 		output: true,
 	},
-	exporters: [{ active: true, type: 'xml' }],
-	transformers: [{ active: true, type: 'select', selector: 'lb' }],
+	// exporters: [{ active: true, type: 'xml' }],
+	// transformers: [{ active: true, type: 'select', selector: 'lb' }],
+	exporters: [],
+	transformers: [],
 	input,
 }
 

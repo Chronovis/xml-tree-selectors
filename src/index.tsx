@@ -33,7 +33,7 @@ class App extends React.PureComponent<any, ContextState> {
 	render() {
 		return (
 			<Main columns={this.state.columns}>
-				<H1>BOSPORUS</H1>
+				<H1>BOSPORUS<small>Transform &amp; Export XML</small></H1>
 				<Head onClick={this.handleColumnClick('input')}>{ this.state.columns.input ? 'INPUT' : 'IN' }</Head>
 				<Head onClick={this.handleColumnClick('transformers')}>{ this.state.columns.transformers ? 'TRANSFORMERS' : 'TRA' }</Head>
 				<Head onClick={this.handleColumnClick('exporters')}>{ this.state.columns.exporters ? 'EXPORTERS' : 'EXP' }</Head>

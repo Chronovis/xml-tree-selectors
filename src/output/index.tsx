@@ -9,30 +9,22 @@ import PartNavigator from './part-navigator'
 const Wrapper = styled('div')`
 	grid-row-start: 3;
 	grid-row-end: 4;
+	position: relative;
+
+	img {
+		position: absolute;
+		width: 20px;
+		height: 20px;
+		right: 0;
+		fill: green;
+		top: 0;
+		transform: rotate(180deg) scaleX(1.2);
+	}
 
 	${(props: { hasParts: boolean }) =>
 		props.hasParts ? `display: grid; grid-template-rows: 5% 95%; grid-row-gap: 1em;` : ''
 	}
 `
-
-// const Parts = styled('ul')`
-// 	padding: 0 0 1em 0;
-// `
-
-// const Part = styled('li')`
-// 	background: gray;
-// 	border-radius: 1em;
-// 	color: white;
-// 	cursor: pointer;
-// 	display: inline-block;
-// 	font-size: .8em;
-// 	font-weight: bold;
-// 	height: 1.8em;
-// 	line-height: 1.8em;
-// 	margin: 0 .3em .3em 0;
-// 	text-align: center;
-// 	width: 1.8em;
-// `
 
 interface Props {
 	columns: Columns
@@ -111,17 +103,14 @@ export default class Output extends React.PureComponent<Props, State> {
 
 	render() {
 		const hasExporter = this.activeExporter() != null && this.editor != null
-		const hasParts = hasExporter && this.state.output.length > 0
-		// const partsBefore = this.state.output.slice(0, this.state.activePart)
-		// const hasPartsBefore = hasExporter && partsBefore.length > 0
-		// const partsAfter = this.state.output.slice(this.state.activePart + 1)
-		// const hasPartsAfter = hasExporter && partsAfter.length > 0
+		const hasParts = hasExporter && this.state.output.length > 1
 
 		return (
 			<Wrapper
 				hasParts={hasParts}
 				ref={this.wrapperRef}
 			>
+				<img src="/static/download.svg" />
 				{
 					hasParts &&
 					<PartNavigator
