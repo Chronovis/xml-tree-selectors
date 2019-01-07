@@ -63,7 +63,7 @@ export const InputEditorWrapper = styled(EditorWrapper)`
 	grid-row-start: 3;
 `
 
-export const InputEditorPlaceholder = styled(EditorWrapper)`
+export const InputEditorPlaceholder = styled(InputEditorWrapper)`
 	background-color: lightgray;
 	cursor: pointer;
 `
