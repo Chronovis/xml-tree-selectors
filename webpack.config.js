@@ -6,7 +6,7 @@ module.exports = {
 		contentBase: path.resolve(__dirname),
 		disableHostCheck: true,
 		historyApiFallback: true,
-		port: 4000
+		port: 4001
 	},
   entry: './src/index.tsx',
   output: {

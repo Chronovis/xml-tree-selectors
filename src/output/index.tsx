@@ -1,7 +1,7 @@
 import * as React from 'react'
 import * as monaco from 'monaco-editor'
 import styled from '@emotion/styled'
-import Xmlio from 'xmlio'
+import XMLio from 'xmlio'
 import editorOptionsByExporterType from './editor-options-by-exporter-type'
 import { EditorWrapper } from '../index.components'
 import PartNavigator from './part-navigator'
@@ -154,7 +154,7 @@ export default class Output extends React.PureComponent<Props, State> {
 	}
 
 	private async generateOutput(): Promise<string[] | DataNode[]> {
-		const xmlio = new Xmlio(this.props.input, { namespaces: ['af'] })
+		const xmlio = new XMLio(this.props.input, { namespaces: ['af'] })
 		const transformed = this.props.transformers.reduce((prev, curr) => {
 			if (curr.active) xmlio.addTransform(curr)
 			return prev

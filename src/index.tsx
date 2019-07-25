@@ -91,6 +91,7 @@ class App extends React.PureComponent<any, ContextState> {
 			...defaultEditorOptions,
 			language: 'xml',
 			value: this.state.input,
+			readOnly: false
 		})
 		this.editor.onDidChangeModelContent(() => this.setState({ input: this.editor.getModel().getValue() }))
 	}

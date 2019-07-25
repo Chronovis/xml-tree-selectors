@@ -1,4 +1,4 @@
-import input from './xml'
+import input from './xml2'
 
 const defaultState: ContextState = {
 	columns: {
